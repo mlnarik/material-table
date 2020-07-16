@@ -6,8 +6,7 @@
   ],
   "rules": {
     "one-var": "off",
-    "semi": ["error", "always", { "omitLastInOneLineBlock": true }],
-    "space-before-function-paren": ["error", "never"]
+    "semi": ["error", "always", { "omitLastInOneLineBlock": true }]
   },
   "parser": "babel-eslint"
 }

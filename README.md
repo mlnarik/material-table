@@ -8,13 +8,6 @@
 
 A simple and powerful Datatable for React based on [Material-UI Table](https://material-ui.com/api/table/) with some additional features.
 
-[![Build Status](https://travis-ci.org/mbrn/material-table.svg?branch=master)](https://travis-ci.org/mbrn/material-table)
-[![npm package](https://img.shields.io/npm/v/material-table/latest.svg)](https://www.npmjs.com/package/material-table)
-[![NPM Downloads](https://img.shields.io/npm/dm/material-table.svg?style=flat)](https://npmcharts.com/compare/material-table?minimal=true)
-[![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/mbrn/material-table.svg)](http://isitmaintained.com/project/mbrn/material-table "Average time to resolve an issue")
-[![Follow on Twitter](https://img.shields.io/twitter/follow/baranmehmet.svg?label=follow+baranmehmet)](https://twitter.com/baranmehmet)
-[![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/material-table/Lobby)
-
 </div>
 
 ## Key features
@@ -46,7 +39,7 @@ To support material-table visit [SUPPORT](https://www.patreon.com/mbrn) page.
 
 ## Issue Prioritizing
 
-Issues would be prioritized according reactions count. `is:issue is:open sort:reactions-+1-desc` filter would be use. 
+Issues would be prioritized according reactions count. `is:issue is:open sort:reactions-+1-desc` filter would be use.
 
 [List issues according to reaction score](https://github.com/mbrn/material-table/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+sort%3Areactions-%2B1-desc)
 
@@ -180,11 +173,16 @@ class App extends Component {
             {
               title: "Doğum Yeri",
               field: "birthCity",
-              lookup: { 34: "İstanbul", 63: "Şanlıurfa" }
-            }
+              lookup: { 34: "İstanbul", 63: "Şanlıurfa" },
+            },
           ]}
           data={[
-            { name: "Mehmet", surname: "Baran", birthYear: 1987, birthCity: 63 }
+            {
+              name: "Mehmet",
+              surname: "Baran",
+              birthYear: 1987,
+              birthCity: 63,
+            },
           ]}
           title="Demo Title"
         />

@@ -1,12 +1,12 @@
-Object.defineProperty(Array.prototype, 'find', {
-    value: function(predicate) {
+Object.defineProperty(Array.prototype, "find", {
+    value: function (predicate) {
         if (this == null) {
             throw new TypeError('"this" is null or not defined');
         }
         var o = Object(this);
         var len = o.length >>> 0;
-        if (typeof predicate !== 'function') {
-            throw new TypeError('predicate must be a function');
+        if (typeof predicate !== "function") {
+            throw new TypeError("predicate must be a function");
         }
         var thisArg = arguments[1];
         var k = 0;
@@ -18,5 +18,5 @@ Object.defineProperty(Array.prototype, 'find', {
             k++;
         }
         return undefined;
-    }
+    },
 });
