@@ -265,6 +265,24 @@ export default class DataManager {
         this.detailPanelType = type;
     }
 
+    changeGroupBy(columnNames) {
+        columnNames.forEach((columnName, index) => {
+            const column = this.columns.find((c) => c.field === columnName);
+            if (column) {
+                const result = {
+                    combine: null,
+                    destination: { index, droppableId: "groups" },
+                    draggableId: column.tableData.id,
+                    mode: "FLUID",
+                    reason: "DROP",
+                    source: { droppableId: "headers", index: 0 },
+                    type: "DEFAULT",
+                };
+                this.changeByDrag(result);
+            }
+        });
+    }
+
     changeByDrag(result) {
         let start = 0;
 
@@ -380,6 +398,16 @@ export default class DataManager {
 
         this.sorted = this.grouped = false;
     }
+
+    getGroupedColumns = () => {
+        return this.columns
+            .filter((col) => col.tableData.groupOrder > -1)
+            .sort(
+                (col1, col2) =>
+                    col1.tableData.groupOrder - col2.tableData.groupOrder
+            )
+            .map((c) => c.field);
+    };
 
     expandTreeForNodes = (data) => {
         data.forEach((row) => {

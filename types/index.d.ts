@@ -1,8 +1,8 @@
+import { IconProps } from "@material-ui/core/Icon";
 import * as React from "react";
 
-import { IconProps } from "@material-ui/core/Icon";
-
 export interface MaterialTableProps<RowData extends object> {
+  tableId: string;
   actions?: (Action<RowData> | ((rowData: RowData) => Action<RowData>))[];
   columns: Column<RowData>[];
   components?: Components;

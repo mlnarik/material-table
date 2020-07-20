@@ -1,17 +1,18 @@
 /* eslint-disable no-unused-vars */
+import { withStyles } from "@material-ui/core";
+import LinearProgress from "@material-ui/core/LinearProgress";
 import Table from "@material-ui/core/Table";
 import TableFooter from "@material-ui/core/TableFooter";
 import TableRow from "@material-ui/core/TableRow";
-import LinearProgress from "@material-ui/core/LinearProgress";
-import DoubleScrollbar from "react-double-scrollbar";
-import * as React from "react";
-import { MTablePagination, MTableSteppedPagination } from "./components";
-import { DragDropContext, Droppable } from "react-beautiful-dnd";
-import DataManager from "./utils/data-manager";
 import { debounce } from "debounce";
 import equal from "fast-deep-equal";
-import { withStyles } from "@material-ui/core";
+import * as React from "react";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import DoubleScrollbar from "react-double-scrollbar";
+import { MTablePagination, MTableSteppedPagination } from "./components";
 import * as CommonValues from "./utils/common-values";
+import DataManager from "./utils/data-manager";
+import { tableSettingsStorage } from "./utils/tableSettingsStorage";
 
 /* eslint-enable no-unused-vars */
 
@@ -97,6 +98,7 @@ export default class MaterialTable extends React.Component {
                 defaultSortColumnIndex,
                 defaultSortDirection
             );
+
         isInit &&
             this.dataManager.changeSearchText(props.options.searchText || "");
         isInit &&
@@ -108,6 +110,12 @@ export default class MaterialTable extends React.Component {
         this.dataManager.changePaging(props.options.paging);
         isInit && this.dataManager.changeParentFunc(props.parentChildData);
         this.dataManager.changeDetailPanelType(props.options.detailPanelType);
+        this.dataManager.changeGroupBy(
+            tableSettingsStorage.getBySetting(
+                this.props.tableId,
+                "GroupedBy"
+            ) ?? []
+        );
     }
 
     componentDidUpdate(prevProps) {
@@ -359,6 +367,11 @@ export default class MaterialTable extends React.Component {
                     result.destination.index
                 );
             }
+            tableSettingsStorage.save(
+                this.props.tableId,
+                "GroupedBy",
+                this.dataManager.getGroupedColumns()
+            );
         });
     };
 
@@ -381,6 +394,11 @@ export default class MaterialTable extends React.Component {
         this.setState(this.dataManager.getRenderState(), () => {
             this.props.onGroupRemoved &&
                 this.props.onGroupRemoved(groupedColumn, index);
+            tableSettingsStorage.save(
+                this.props.tableId,
+                "GroupedBy",
+                this.dataManager.getGroupedColumns()
+            );
         });
     };
 
