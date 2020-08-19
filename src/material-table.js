@@ -93,10 +93,15 @@ export default class MaterialTable extends React.Component {
             this.dataManager.setData(props.data);
         }
 
+        const orderBy = tableSettingsStorage.getBySetting(
+            this.props.tableId,
+            "OrderBy"
+        );
+
         isInit &&
             this.dataManager.changeOrder(
-                defaultSortColumnIndex,
-                defaultSortDirection
+                orderBy?.column ?? defaultSortColumnIndex,
+                orderBy?.direction ?? defaultSortDirection
             );
 
         isInit &&
@@ -312,6 +317,10 @@ export default class MaterialTable extends React.Component {
                     this.props.onOrderChange(newOrderBy, orderDirection);
             });
         }
+        tableSettingsStorage.save(this.props.tableId, "OrderBy", {
+            column: newOrderBy,
+            direction: orderDirection,
+        });
     };
 
     onChangePage = (event, page) => {
