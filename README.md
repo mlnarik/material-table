@@ -2,11 +2,12 @@
   <a href="https://material-table.com" rel="noopener" target="_blank" ><img width="200" src="https://raw.githubusercontent.com/mbrn/material-table.com/master/docs/assets/logo-back.png" alt="material-table"></a></p>
 </p>
 
-<h1 align="center">material-table</h1>
+<h1 align="center">material-table-memo</h1>
 
 <div align="center">
 
 A simple and powerful Datatable for React based on [Material-UI Table](https://material-ui.com/api/table/) with some additional features.
+It is extension to material-table library and contains additional features such as **search and group memorization**.
 
 </div>
 
@@ -31,23 +32,15 @@ A simple and powerful Datatable for React based on [Material-UI Table](https://m
 
 ## Demo and documentation
 
-You can access all code examples and documentation on our site [**material-table.com**](https://material-table.com/).
+Please refer to original library pages. There may be only small differences. You can access all code examples and documentation on this site [**material-table.com**](https://material-table.com/).
 
 ## Support material-table
 
-To support material-table visit [SUPPORT](https://www.patreon.com/mbrn) page.
-
-## Issue Prioritizing
-
-Issues would be prioritized according reactions count. `is:issue is:open sort:reactions-+1-desc` filter would be use.
-
-[List issues according to reaction score](https://github.com/mbrn/material-table/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+sort%3Areactions-%2B1-desc)
+To support original library (material-table) visit [SUPPORT](https://www.patreon.com/mbrn) page.
 
 ## Prerequisites
 
 The minimum `React` version material-table supports is `^16.8.5` since material-table `v1.36.1`. This is due to utilising [`react-beautiful-dnd`](https://github.com/atlassian/react-beautiful-dnd) for drag & drop functionality which uses hooks.
-
-If you use an older version of react we suggest to upgrade your dependencies or use material-table `1.36.0`.
 
 ## Installation
 
@@ -55,12 +48,12 @@ If you use an older version of react we suggest to upgrade your dependencies or 
 
 To install material-table with `npm`:
 
-    npm install material-table --save
+    npm install material-table-memo --save
     npm install @material-ui/core --save
 
 To install material-table with `yarn`:
 
-    yarn add material-table
+    yarn add material-table-memo
     yarn add @material-ui/core
 
 #### 2.Add material icons

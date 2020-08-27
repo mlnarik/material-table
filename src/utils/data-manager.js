@@ -6,8 +6,8 @@ export default class DataManager {
     applySearch = false;
     currentPage = 0;
     detailPanelType = "multiple";
-    lastDetailPanelRow = undefined;
     lastEditingRow = undefined;
+    openedDetailPanels = [];
     orderBy = -1;
     orderDirection = "";
     pageSize = 5;
@@ -155,23 +155,33 @@ export default class DataManager {
         const rowData = this.findDataByPath(this.sortedData, path);
 
         if (
+            this.detailPanelType === "single" &&
+            this.openedDetailPanels.length &&
+            !this.openedDetailPanels.includes(rowData)
+        ) {
+            this.openedDetailPanels[0].tableData.showDetailPanel = undefined;
+            this.openedDetailPanels.pop();
+        }
+
+        if (
             (rowData.tableData.showDetailPanel || "").toString() ===
             render.toString()
         ) {
             rowData.tableData.showDetailPanel = undefined;
+            this.openedDetailPanels = this.openedDetailPanels.filter(
+                (p) => p !== rowData
+            );
         } else {
             rowData.tableData.showDetailPanel = render;
+            this.openedDetailPanels.push(rowData);
         }
+    }
 
-        if (
-            this.detailPanelType === "single" &&
-            this.lastDetailPanelRow &&
-            this.lastDetailPanelRow != rowData
-        ) {
-            this.lastDetailPanelRow.tableData.showDetailPanel = undefined;
-        }
-
-        this.lastDetailPanelRow = rowData;
+    closeAllDetailPanels() {
+        this.openedDetailPanels.forEach((panel) => {
+            panel.tableData.showDetailPanel = undefined;
+        });
+        this.openedDetailPanels = [];
     }
 
     changeGroupExpand(path) {
@@ -183,6 +193,7 @@ export default class DataManager {
         this.searchText = searchText;
         this.searched = false;
         this.currentPage = 0;
+        this.closeAllDetailPanels();
     }
 
     changeRowEditing(rowData, mode) {
@@ -940,7 +951,7 @@ export default class DataManager {
                 )
             ) {
                 if (rowData.tableData.isTreeExpanded === undefined) {
-                    var isExpanded =
+                    const isExpanded =
                         typeof this.defaultExpanded === "boolean"
                             ? this.defaultExpanded
                             : this.defaultExpanded(rowData);
@@ -965,7 +976,7 @@ export default class DataManager {
         });
 
         const traverseTreeAndDeleteMarked = (rowDataArray) => {
-            for (var i = rowDataArray.length - 1; i >= 0; i--) {
+            for (let i = rowDataArray.length - 1; i >= 0; i--) {
                 const item = rowDataArray[i];
                 if (item.tableData.childRows) {
                     traverseTreeAndDeleteMarked(item.tableData.childRows);
