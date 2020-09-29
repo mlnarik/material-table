@@ -294,6 +294,7 @@ export interface Options {
   toolbarButtonAlignment?: "left" | "right";
   detailPanelColumnAlignment?: "left" | "right";
   cellStyle: React.CSSProperties;
+  overflowY: "auto" | "hidden" | "visible";
 }
 
 export interface Localization {
