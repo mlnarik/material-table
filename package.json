@@ -1,6 +1,6 @@
 {
   "name": "material-table-memo",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "Datatable for React based on https://material-ui.com/api/table/ and https://github.com/mbrn/material-table with additional features",
   "main": "dist/index.js",
   "types": "types/index.d.ts",

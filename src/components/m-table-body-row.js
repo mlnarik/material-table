@@ -1,14 +1,13 @@
 /* eslint-disable no-unused-vars */
 import Checkbox from "@material-ui/core/Checkbox";
+import Icon from "@material-ui/core/Icon";
+import IconButton from "@material-ui/core/IconButton";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
-import IconButton from "@material-ui/core/IconButton";
-import Icon from "@material-ui/core/Icon";
 import Tooltip from "@material-ui/core/Tooltip";
 import PropTypes from "prop-types";
 import * as React from "react";
 import * as CommonValues from "../utils/common-values";
-/* eslint-enable no-unused-vars */
 
 export default class MTableBodyRow extends React.Component {
     renderColumns() {
@@ -405,6 +404,9 @@ export default class MTableBodyRow extends React.Component {
             ...rowProps
         } = this.props;
 
+        const onCancel = () =>
+            onToggleDetailPanel(this.props.path, detailPanel);
+
         return (
             <>
                 <TableRow
@@ -476,16 +478,15 @@ export default class MTableBodyRow extends React.Component {
                     })}
                 {this.props.data.tableData &&
                     this.props.data.tableData.showDetailPanel && (
-                        <TableRow
-                        // selected={this.props.index % 2 === 0}
-                        >
+                        <TableRow>
                             <TableCell
                                 size={size}
                                 colSpan={renderColumns.length}
                                 padding="none"
                             >
                                 {this.props.data.tableData.showDetailPanel(
-                                    this.props.data
+                                    this.props.data,
+                                    onCancel
                                 )}
                             </TableCell>
                         </TableRow>

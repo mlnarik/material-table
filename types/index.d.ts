@@ -8,7 +8,7 @@ export interface MaterialTableProps<RowData extends object> {
   components?: Components;
   data: RowData[] | ((query: Query<RowData>) => Promise<QueryResult<RowData>>);
   detailPanel?:
-    | ((rowData: RowData) => React.ReactNode)
+    | ((rowData: RowData, onCancel: VoidFunction) => React.ReactNode)
     | (DetailPanel<RowData> | ((rowData: RowData) => DetailPanel<RowData>))[];
   editable?: {
     isEditable?: (rowData: RowData) => boolean;
@@ -294,7 +294,7 @@ export interface Options {
   toolbarButtonAlignment?: "left" | "right";
   detailPanelColumnAlignment?: "left" | "right";
   cellStyle: React.CSSProperties;
-  overflowY: "auto" | "hidden" | "visible";
+  overflowY: React.CSSProperties["overflowY"];
 }
 
 export interface Localization {
