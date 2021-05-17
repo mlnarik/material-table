@@ -14,8 +14,6 @@ import * as CommonValues from "./utils/common-values";
 import DataManager from "./utils/data-manager";
 import { tableSettingsStorage } from "./utils/tableSettingsStorage";
 
-/* eslint-enable no-unused-vars */
-
 export default class MaterialTable extends React.Component {
     dataManager = new DataManager();
 

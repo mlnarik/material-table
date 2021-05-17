@@ -520,10 +520,11 @@ export default class DataManager {
     }
 
     sortList(list) {
-        const columnDef = this.columns.find(
-            (_) => _.tableData.id === this.orderBy
-        );
-        let result = list;
+        const columnDef =
+            this.columns.find((_) => _.tableData.id === this.orderBy) ??
+            this.columns[0];
+
+        let result;
 
         if (columnDef.customSort) {
             if (this.orderDirection === "desc") {
