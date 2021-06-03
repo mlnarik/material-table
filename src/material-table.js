@@ -41,7 +41,6 @@ export default class MaterialTable extends React.Component {
                 orderDirection: renderState.orderDirection,
                 page: 0,
                 pageSize: calculatedProps.options.pageSize,
-                search: renderState.searchText,
 
                 totalCount: 0,
             },
@@ -103,7 +102,12 @@ export default class MaterialTable extends React.Component {
             );
 
         isInit &&
-            this.dataManager.changeSearchText(props.options.searchText || "");
+            this.dataManager.changeSearchText(
+                tableSettingsStorage.getBySetting(
+                    this.props.searchId,
+                    "Search"
+                ) ?? ""
+            );
         isInit &&
             this.dataManager.changeCurrentPage(
                 props.options.initialPage ? props.options.initialPage : 0
@@ -551,6 +555,12 @@ export default class MaterialTable extends React.Component {
                     this.props.onSearchChange(this.state.searchText);
             });
         }
+
+        tableSettingsStorage.save(
+            this.props.searchId,
+            "Search",
+            this.state.searchText
+        );
     }, this.props.options.debounceInterval);
 
     onFilterChange = (columnId, value) => {
@@ -914,123 +924,144 @@ export default class MaterialTable extends React.Component {
                             onGroupRemoved={this.onGroupRemoved}
                         />
                     )}
-                    <ScrollBar double={props.options.doubleHorizontalScroll}>
-                        <Droppable droppableId="headers" direction="horizontal">
-                            {(provided, snapshot) => {
-                                const table = this.renderTable(props);
-                                return (
-                                    <div ref={provided.innerRef}>
-                                        <div
-                                            ref={this.tableContainerDiv}
-                                            style={{
-                                                maxHeight:
-                                                    props.options.maxBodyHeight,
-                                                minHeight:
-                                                    props.options.minBodyHeight,
-                                                overflowY:
-                                                    props.options.overflowY,
-                                            }}
-                                        >
-                                            {this.state.width &&
-                                            props.options.fixedColumns &&
-                                            props.options.fixedColumns.right ? (
-                                                <div
-                                                    style={{
-                                                        width: this.getColumnsWidth(
-                                                            props,
-                                                            -1 *
-                                                                props.options
-                                                                    .fixedColumns
-                                                                    .right
-                                                        ),
-                                                        position: "absolute",
-                                                        top: 0,
-                                                        right: 0,
-                                                        boxShadow:
-                                                            "-2px 0px 15px rgba(125,147,178,.25)",
-                                                        overflowX: "hidden",
-                                                        zIndex: 11,
-                                                    }}
-                                                >
+                    <props.components.TableWrapper>
+                        <ScrollBar
+                            double={props.options.doubleHorizontalScroll}
+                        >
+                            <Droppable
+                                droppableId="headers"
+                                direction="horizontal"
+                            >
+                                {(provided, snapshot) => {
+                                    const table = this.renderTable(props);
+                                    return (
+                                        <div ref={provided.innerRef}>
+                                            <div
+                                                ref={this.tableContainerDiv}
+                                                style={{
+                                                    maxHeight:
+                                                        props.options
+                                                            .maxBodyHeight,
+                                                    minHeight:
+                                                        props.options
+                                                            .minBodyHeight,
+                                                    overflowY:
+                                                        props.options.overflowY,
+                                                }}
+                                            >
+                                                {this.state.width &&
+                                                props.options.fixedColumns &&
+                                                props.options.fixedColumns
+                                                    .right ? (
                                                     <div
                                                         style={{
-                                                            width: this.state
-                                                                .width,
-                                                            background: "white",
-                                                            transform: `translateX(calc(${this.getColumnsWidth(
+                                                            width: this.getColumnsWidth(
                                                                 props,
                                                                 -1 *
                                                                     props
                                                                         .options
                                                                         .fixedColumns
                                                                         .right
-                                                            )} - 100%))`,
+                                                            ),
+                                                            position:
+                                                                "absolute",
+                                                            top: 0,
+                                                            right: 0,
+                                                            boxShadow:
+                                                                "-2px 0px 15px rgba(125,147,178,.25)",
+                                                            overflowX: "hidden",
+                                                            zIndex: 11,
                                                         }}
                                                     >
-                                                        {table}
+                                                        <div
+                                                            style={{
+                                                                width: this
+                                                                    .state
+                                                                    .width,
+                                                                background:
+                                                                    "white",
+                                                                transform: `translateX(calc(${this.getColumnsWidth(
+                                                                    props,
+                                                                    -1 *
+                                                                        props
+                                                                            .options
+                                                                            .fixedColumns
+                                                                            .right
+                                                                )} - 100%))`,
+                                                            }}
+                                                        >
+                                                            {table}
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            ) : null}
+                                                ) : null}
 
-                                            <div>{table}</div>
+                                                <div>{table}</div>
 
-                                            {this.state.width &&
-                                            props.options.fixedColumns &&
-                                            props.options.fixedColumns.left ? (
-                                                <div
-                                                    style={{
-                                                        width: this.getColumnsWidth(
-                                                            props,
-                                                            props.options
-                                                                .fixedColumns
-                                                                .left
-                                                        ),
-                                                        position: "absolute",
-                                                        top: 0,
-                                                        left: 0,
-                                                        boxShadow:
-                                                            "2px 0px 15px rgba(125,147,178,.25)",
-                                                        overflowX: "hidden",
-                                                        zIndex: 11,
-                                                    }}
-                                                >
+                                                {this.state.width &&
+                                                props.options.fixedColumns &&
+                                                props.options.fixedColumns
+                                                    .left ? (
                                                     <div
                                                         style={{
-                                                            width: this.state
-                                                                .width,
-                                                            background: "white",
+                                                            width: this.getColumnsWidth(
+                                                                props,
+                                                                props.options
+                                                                    .fixedColumns
+                                                                    .left
+                                                            ),
+                                                            position:
+                                                                "absolute",
+                                                            top: 0,
+                                                            left: 0,
+                                                            boxShadow:
+                                                                "2px 0px 15px rgba(125,147,178,.25)",
+                                                            overflowX: "hidden",
+                                                            zIndex: 11,
                                                         }}
                                                     >
-                                                        {table}
+                                                        <div
+                                                            style={{
+                                                                width: this
+                                                                    .state
+                                                                    .width,
+                                                                background:
+                                                                    "white",
+                                                            }}
+                                                        >
+                                                            {table}
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            ) : null}
+                                                ) : null}
+                                            </div>
+                                            {provided.placeholder}
                                         </div>
-                                        {provided.placeholder}
-                                    </div>
-                                );
-                            }}
-                        </Droppable>
-                    </ScrollBar>
-                    {(this.state.isLoading || props.isLoading) &&
-                        props.options.loadingType === "linear" && (
-                            <div
-                                style={{ position: "relative", width: "100%" }}
-                            >
+                                    );
+                                }}
+                            </Droppable>
+                        </ScrollBar>
+                        {(this.state.isLoading || props.isLoading) &&
+                            props.options.loadingType === "linear" && (
                                 <div
                                     style={{
-                                        position: "absolute",
-                                        top: 0,
-                                        left: 0,
-                                        height: "100%",
+                                        position: "relative",
                                         width: "100%",
                                     }}
                                 >
-                                    <LinearProgress />
+                                    <div
+                                        style={{
+                                            position: "absolute",
+                                            top: 0,
+                                            left: 0,
+                                            height: "100%",
+                                            width: "100%",
+                                        }}
+                                    >
+                                        <LinearProgress />
+                                    </div>
                                 </div>
-                            </div>
-                        )}
-                    {this.renderFooter()}
+                            )}
+                        {this.renderFooter()}
+                    </props.components.TableWrapper>
 
                     {(this.state.isLoading || props.isLoading) &&
                         props.options.loadingType === "overlay" && (

@@ -3,6 +3,7 @@ import * as React from "react";
 
 export interface MaterialTableProps<RowData extends object> {
   tableId: string;
+  searchId?: string;
   actions?: (Action<RowData> | ((rowData: RowData) => Action<RowData>))[];
   columns: Column<RowData>[];
   components?: Components;
@@ -185,6 +186,7 @@ export interface Components {
   OverlayLoading?: React.ComponentType<any>;
   Row?: React.ComponentType<any>;
   Toolbar?: React.ComponentType<any>;
+  TableWrapper?: React.ComponentType<any>;
 }
 
 export const MTableAction: (props: any) => React.ReactElement<any>;
@@ -284,7 +286,6 @@ export interface Options {
   search?: boolean;
   searchFieldAlignment?: "left" | "right";
   searchFieldStyle?: React.CSSProperties;
-  searchText?: string;
   selection?: boolean;
   selectionProps?: any | ((data: any) => any);
   sorting?: boolean;

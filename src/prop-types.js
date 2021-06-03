@@ -165,6 +165,11 @@ export const propTypes = {
             PropTypes.func,
             StyledComponent,
         ]),
+        TableWrapper: PropTypes.oneOfType([
+            PropTypes.element,
+            PropTypes.func,
+            StyledComponent,
+        ]),
     }),
     data: PropTypes.oneOfType([
         PropTypes.arrayOf(PropTypes.object),
@@ -329,7 +334,6 @@ export const propTypes = {
         paginationType: PropTypes.oneOf(["normal", "stepped"]),
         rowStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
         search: PropTypes.bool,
-        searchText: PropTypes.string,
         toolbarButtonAlignment: PropTypes.oneOf(["left", "right"]),
         searchFieldAlignment: PropTypes.oneOf(["left", "right"]),
         searchFieldStyle: PropTypes.object,

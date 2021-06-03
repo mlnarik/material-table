@@ -1,11 +1,11 @@
-import React from "react";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Icon from "@material-ui/core/Icon";
 import Paper from "@material-ui/core/Paper";
-import TablePagination from "@material-ui/core/TablePagination";
-import * as MComponents from "./components";
-import PropTypes from "prop-types";
 import { fade } from "@material-ui/core/styles/colorManipulator";
+import TablePagination from "@material-ui/core/TablePagination";
+import PropTypes from "prop-types";
+import React from "react";
+import * as MComponents from "./components";
 
 const OverlayLoading = (props) => (
     <div
@@ -13,7 +13,7 @@ const OverlayLoading = (props) => (
             display: "table",
             width: "100%",
             height: "100%",
-            backgroundColor: fade(props.theme.palette.background.paper, 0.7),
+            backgroundColor: fade(props.theme.palette.background.default, 0.7),
         }}
     >
         <div
@@ -35,6 +35,8 @@ OverlayLoading.propTypes = {
 
 const Container = (props) => <Paper elevation={2} {...props} />;
 
+const TableWrapper = (props) => <div {...props} />;
+
 export const defaultProps = {
     actions: [],
     classes: {},
@@ -55,6 +57,7 @@ export const defaultProps = {
         Pagination: TablePagination,
         Row: MComponents.MTableBodyRow,
         Toolbar: MComponents.MTableToolbar,
+        TableWrapper: TableWrapper,
     },
     data: [],
     icons: {

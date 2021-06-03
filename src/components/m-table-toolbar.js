@@ -1,20 +1,20 @@
 /* eslint-disable no-unused-vars */
 import Checkbox from "@material-ui/core/Checkbox";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
 import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
+import { lighten } from "@material-ui/core/styles/colorManipulator";
+import withStyles from "@material-ui/core/styles/withStyles";
 import TextField from "@material-ui/core/TextField";
 import Toolbar from "@material-ui/core/Toolbar";
 import Tooltip from "@material-ui/core/Tooltip";
 import Typography from "@material-ui/core/Typography";
-import withStyles from "@material-ui/core/styles/withStyles";
-import { lighten } from "@material-ui/core/styles/colorManipulator";
 import classNames from "classnames";
 import { CsvBuilder } from "filefy";
-import PropTypes, { oneOf } from "prop-types";
+import PropTypes from "prop-types";
 import * as React from "react";
+
 /* eslint-enable no-unused-vars */
 
 export class MTableToolbar extends React.Component {
@@ -92,6 +92,12 @@ export class MTableToolbar extends React.Component {
                                     <this.props.icons.Search
                                         color="inherit"
                                         fontSize="small"
+                                        className={
+                                            this.props.searchText
+                                                ? this.props.classes
+                                                      .highlightIcon
+                                                : undefined
+                                        }
                                     />
                                 </Tooltip>
                             </InputAdornment>
@@ -403,7 +409,11 @@ export const styles = (theme) => ({
     },
     searchField: {
         minWidth: 150,
-        paddingLeft: theme.spacing(2),
+    },
+    highlightIcon: {
+        color: theme.palette.success.contrastText,
+        backgroundColor: theme.palette.success.main,
+        borderRadius: 4,
     },
     formControlLabel: {
         paddingLeft: theme.spacing(1),
